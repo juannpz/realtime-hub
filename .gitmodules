@@ -1,0 +1,9 @@
+[submodule "services/crud-service"]
+	path = services/crud-service
+	url = git@github.com:juannpz/crud-service.git
+[submodule "services/websocket-connection-service"]
+	path = services/websocket-connection-service
+	url = git@github.com:juannpz/websocket-connection-service.git
+[submodule "services/database-listener-service"]
+	path = services/database-listener-service
+	url = git@github.com:juannpz/database-listener-service.git
