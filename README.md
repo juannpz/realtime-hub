@@ -34,14 +34,14 @@ A multi-service application designed to demonstrate real-time data synchronizati
 
     **A) CRUD Service (`./services/crud-service/.env`)**
 
-    | Variable      | Description                                  | Example Value          |
-    | :------------ | :------------------------------------------- | :--------------------- |
-    | `DB_HOST`     | Hostname of the PostgreSQL database.         | `postgres`             |
-    | `DB_PORT`     | Port of the PostgreSQL database.             | `5432`                 |
-    | `DB_NAME`     | Name of the database to connect to.          | `postgres`             |
-    | `DB_USER`     | Username for the database connection.        | `postgres`             |
-    | `DB_PASSWORD` | Password for the database user.              | `your_secret_password` |
-    | `JWT_KEY`     | Secret key used for signing JSON Web Tokens. | `your_jwt_secret`      |
+    | Variable              | Description                                  | Example Value          |
+    | :------------         | :------------------------------------------- | :--------------------- |
+    | `DB_HOST`             | Hostname of the PostgreSQL database.         | `postgres`             |
+    | `DB_PORT`             | Port of the PostgreSQL database.             | `5432`                 |
+    | `DB_NAME`             | Name of the database to connect to.          | `postgres`             |
+    | `DB_USER`             | Username for the database connection.        | `postgres`             |
+    | `DB_PASSWORD`         | Password for the database user.              | `your_secret_password` |
+    | `JWT_KEY`             | Secret key used for signing JSON Web Tokens. | `your_jwt_secret`      |
 
     **B) Database Listener Service (`./services/database-listener-service/.env`)**
 
@@ -69,7 +69,7 @@ A multi-service application designed to demonstrate real-time data synchronizati
     | `BROKER_HOST`         | Hostname of the Kafka message broker.           | `kafka`                  |
     | `BROKER_PORT`         | Port of the Kafka message broker.               | `9092`                   |
     | `BROKER_CLIENT_ID`    | Unique ID for this service's Kafka client.      | `websocket-client`       |
-    | `SESSION_SERVICE_URL` | URL of the internal session management service. | `http://crud-service:3000` |
+    | `SESSION_SERVICE_URL` | URL of the internal session management service. | `http://session-service:3000` |
 
 4.  Start all services using Docker Compose. This will build the images and run the containers in detached mode.
     ```bash
