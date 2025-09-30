@@ -6,7 +6,7 @@ A multi-service application designed to demonstrate real-time data synchronizati
 
 *   **Backend:** Deno, TypeScript
 *   **Database:** PostgreSQL
-*   **Messaging:** RabbitMQ, WebSocket
+*   **Messaging:** Kafka, WebSocket
 *   **Containerization:** Docker, Docker Compose
 
 ## Getting Started
@@ -22,11 +22,56 @@ A multi-service application designed to demonstrate real-time data synchronizati
     ```bash
     git clone --recurse-submodules https://github.com/juannpz/realtime-sync-hub.git
     ```
+
 2.  Navigate to the project directory:
     ```bash
     cd realtime-sync-hub
     ```
-3.  Start all services using Docker Compose. This will build the images and run the containers in detached mode.
+
+3.  **Configure Environment Variables**
+
+    Each service requires a `.env` file in its respective directory to function correctly. Create the files as described below.
+
+    **A) CRUD Service (`./services/crud-service/.env`)**
+
+    | Variable      | Description                                  | Example Value          |
+    | :------------ | :------------------------------------------- | :--------------------- |
+    | `DB_HOST`     | Hostname of the PostgreSQL database.         | `postgres`             |
+    | `DB_PORT`     | Port of the PostgreSQL database.             | `5432`                 |
+    | `DB_NAME`     | Name of the database to connect to.          | `postgres`             |
+    | `DB_USER`     | Username for the database connection.        | `postgres`             |
+    | `DB_PASSWORD` | Password for the database user.              | `your_secret_password` |
+    | `JWT_KEY`     | Secret key used for signing JSON Web Tokens. | `your_jwt_secret`      |
+
+    **B) Database Listener Service (`./services/database-listener-service/.env`)**
+
+    | Variable            | Description                               | Example Value          |
+    | :------------------ | :---------------------------------------- | :--------------------- |
+    | `DB_HOST`           | Hostname of the PostgreSQL database.      | `postgres`             |
+    | `DB_PORT`           | Port of the PostgreSQL database.          | `5432`                 |
+    | `DB_NAME`           | Name of the database to connect to.       | `postgres`             |
+    | `DB_USER`           | Username for the database connection.     | `postgres`             |
+    | `DB_PASSWORD`       | Password for the database user.           | `your_secret_password` |
+    | `BROKER_HOST`       | Hostname of the Kafka message broker.     | `kafka`                |
+    | `BROKER_PORT`       | Port of the Kafka message broker.         | `9092`                 |
+    | `BROKER_CLIENT_ID`  | Unique ID for this service's Kafka client.| `db-listener-client`   |
+
+    **C) WebSocket Connection Service (`./services/websocket-connection-service/.env`)**
+
+    | Variable              | Description                                     | Example Value            |
+    | :-------------------- | :---------------------------------------------- | :----------------------- |
+    | `DB_HOST`             | Hostname of the PostgreSQL database.            | `postgres`               |
+    | `DB_PORT`             | Port of the PostgreSQL database.                | `5432`                   |
+    | `DB_NAME`             | Name of the database to connect to.             | `postgres`               |
+    | `DB_USER`             | Username for the database connection.           | `postgres`               |
+    | `DB_PASSWORD`         | Password for the database user.                 | `your_secret_password`   |
+    | `WS_PORT`             | Port for this WebSocket server to listen on.    | `5001`                   |
+    | `BROKER_HOST`         | Hostname of the Kafka message broker.           | `kafka`                  |
+    | `BROKER_PORT`         | Port of the Kafka message broker.               | `9092`                   |
+    | `BROKER_CLIENT_ID`    | Unique ID for this service's Kafka client.      | `websocket-client`       |
+    | `SESSION_SERVICE_URL` | URL of the internal session management service. | `http://crud-service:3000` |
+
+4.  Start all services using Docker Compose. This will build the images and run the containers in detached mode.
     ```bash
     docker-compose up --build -d
     ```
